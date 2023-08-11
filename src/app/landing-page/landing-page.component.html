@@ -1,0 +1,80 @@
+<nav [class]="data.navbar.classes">
+    <div class="container">
+      <a class="navbar-brand" href="#">{{data.navbar.title}}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item" *ngFor="let link of data.navbar.links">
+            <a class="nav-link" href="{{link.link}}">{{link.title}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+<div *ngFor="let sec of data.sections;let i= index">
+	<div class="jumbotron jumbotron-fluid noMargin" *ngIf="sec.type=='jumbotron'">
+		<div class="container">
+			<h1 class="display-4" *ngIf="sec.title">{{sec.title}}</h1>
+			<p class="lead" *ngIf="sec.subTitle"> {{sec.subTitle}}</p>
+		</div>
+	</div>
+
+	<section [class]="sec.colorClasses+' padding50'" *ngIf="sec.type=='section'" [id]="sec.cssId" >
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 mx-auto">
+					<h2 *ngIf="sec.title">{{sec.title}}</h2>
+					<p class="lead" [innerHTML]="sec.text"></p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="py-5 bg-image-full" [style.background-image]="'url('+sec.url+')'" *ngIf="sec.type=='imageFull'">
+		<div [style.height]="sec.height"></div>
+	</section>
+
+
+
+
+<div id="carouselControls{{i}}" class="carousel slide" data-ride="carousel" *ngIf="sec.type=='carouselFull'">
+ <ol class="carousel-indicators">
+    <li data-target="#carouselIndicators" *ngFor="let im of sec.slides;let imgIndex= index" [attr.data-slide-to]="imgIndex+1"  [class]="imgIndex==0?'active':' ' "></li>
+   
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active" *ngFor="let im of sec.slides;let imgIndex= index"  [class]="imgIndex==0?'carousel-item active':' carousel-item  ' ">
+      <img class="d-block w-100" [src]="im.img" [alt]="im.alt" [style.height]="sec.imgHeight">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselControls{{i}}" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselControls{{i}}" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
+
+</div>
+
+
+
